@@ -1,5 +1,5 @@
 import User from "../../models/User.js";
-import { logAdminAction } from "../../utils/adminLogger.js";
+import { logAdminAction } from "../../utils/admin/adminLogger.js";
 
 /* =========================
    Get users (pagination)

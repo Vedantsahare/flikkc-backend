@@ -1,6 +1,6 @@
 import AdminPendingAction from "../../models/admin/AdminPendingAction.js";
-import { executeAdminAction } from "../../utils/adminActionExecutor.js";
-import { logAdminAction } from "../../utils/adminLogger.js";
+import { executeAdminAction } from "../../utils/admin/adminActionExecutor.js";
+import { logAdminAction } from "../../utils/admin/adminLogger.js";
 
 
 /* =========================

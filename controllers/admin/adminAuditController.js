@@ -1,4 +1,4 @@
-import AdminAuditLog from "../models/AdminAuditLog.js";
+import AdminAuditLog from "../models/admin/AdminAuditLog.js";
 
 export const getAuditLogs = async (req, res) => {
 

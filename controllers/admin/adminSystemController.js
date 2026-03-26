@@ -1,5 +1,5 @@
 import SystemSettings from "../../models/SystemSettings.js";
-import { logAdminAction } from "../../utils/adminLogger.js";
+import { logAdminAction } from "../../utils/admin/adminLogger.js";
 
 /* =========================
    Update system status

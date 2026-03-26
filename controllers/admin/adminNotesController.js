@@ -1,4 +1,4 @@
-import AdminNote from "../../models/AdminNote.js";
+import AdminNote from "../../models/admin/AdminNote.js";
 import User from "../../models/User.js";
 
 /* =========================

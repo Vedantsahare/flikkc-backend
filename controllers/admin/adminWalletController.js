@@ -1,6 +1,6 @@
 import Wallet from "../../models/Wallet.js";
 import AdminPendingAction from "../../models/admin/AdminPendingAction.js";
-import { logAdminAction } from "../../utils/logAdminAction.js";
+import { logAdminAction } from "../../utils/admin/logAdminAction.js";
 
 /* =========================
    Request wallet adjustment
