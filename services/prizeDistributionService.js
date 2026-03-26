@@ -1,30 +1,51 @@
-export const distributeEventPrizes = async (eventId) => {
-  const event = await Event.findById(eventId);
+import Event from "../models/Event.js";
+import Leaderboard from "../models/Leaderboard.js";
+import { processWalletTransaction } from "../services/walletservice.js";
 
-  if (!event) throw new Error("Event not found");
-  if (event.prizesDistributed) throw new Error("Already distributed");
+/**
+ * Distribute prizes for an event
+ */
+export const distributePrizes = async (eventId) => {
+  try {
+    const event = await Event.findById(eventId);
 
-  const leaderboard = await Leaderboard.find({ eventId }).sort({ score: -1 });
+    if (!event) throw new Error("Event not found");
+    if (event.prizesDistributed) throw new Error("Already distributed");
 
-  if (!leaderboard.length) throw new Error("No entries");
+    const leaderboard = await Leaderboard.find({ eventId }).sort({ score: -1 });
 
-  const winners = leaderboard.slice(0, event.maxWinners);
-  const prizePerWinner = event.prizePool / winners.length;
+    if (!leaderboard.length) throw new Error("No entries");
 
-  await Promise.all(
-    winners.map(winner =>
-      processWalletTransaction({
-        userId: winner.userId,
-        type: "credit",
-        amount: prizePerWinner,
-        description: "Event prize payout",
-        source: "event"
-      })
-    )
-  );
+    const winners = leaderboard.slice(0, event.maxWinners);
 
-  event.prizesDistributed = true;
-  await event.save();
+    if (!winners.length) throw new Error("No winners");
 
-  return { winners, prizePerWinner };
+    const prizePerWinner = event.prizePool / winners.length;
+
+    // Distribute prizes
+    await Promise.all(
+      winners.map((winner) =>
+        processWalletTransaction({
+          userId: winner.userId,
+          type: "credit",
+          amount: prizePerWinner,
+          description: "Event prize payout",
+          source: "event",
+        })
+      )
+    );
+
+    // Mark event as completed
+    event.prizesDistributed = true;
+    await event.save();
+
+    return {
+      success: true,
+      winners,
+      prizePerWinner,
+    };
+  } catch (error) {
+    console.error("distributePrizes error:", error);
+    throw error;
+  }
 };
