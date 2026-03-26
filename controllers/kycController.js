@@ -2,7 +2,7 @@ import User from "../models/User.js";
 import Kyc from "../models/KYC.js";
 import Otp from "../models/Otp.js";
 
-import generateOtp from "../utils/generateOtp.js";
+import { generateOtp } from "../utils/generateOtp.js";
 import validatePan from "../utils/panValidator.js";
 import validateAadhaar from "../utils/aadhaarValidator.js";
 
