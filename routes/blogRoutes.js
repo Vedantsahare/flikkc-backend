@@ -7,7 +7,7 @@ import {
 } from "../controllers/blogController.js";
 
 import auth from "../middleware/auth.js";
-import roleGuard from "../middleware/roleGuard.js";
+import { roleGuard } from "../middleware/roleGuard.js";
 
 const router = express.Router();
 
