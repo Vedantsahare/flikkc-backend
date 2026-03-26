@@ -59,7 +59,7 @@ Sentry.init({
   tracesSampleRate: 1.0
 });
 
-app.use(Sentry.Handlers.requestHandler());
+
 
 /* =========================
    SECURITY
@@ -194,7 +194,7 @@ app.get("/health", (req, res) => {
    ERROR HANDLING
 ========================= */
 
-app.use(Sentry.Handlers.errorHandler());
+
 
 app.use((err, req, res, next) => {
   logger.error(err.stack);
