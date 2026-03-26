@@ -216,3 +216,20 @@ export const logout = (req, res) => {
   res.clearCookie("token");
   res.json({ success: true });
 };
+
+/* ================= ACCEPT LEGAL ================= */
+export const acceptLegal = async (req, res) => {
+  try {
+    const userId = req.user.id;
+
+    await User.findByIdAndUpdate(userId, {
+      legalAccepted: true,
+      legalAcceptedAt: new Date(),
+    });
+
+    res.json({ message: "Legal accepted successfully" });
+  } catch (error) {
+    console.error("acceptLegal error:", error);
+    res.status(500).json({ message: "Server error" });
+  }
+};
